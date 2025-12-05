@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - NovaLanding</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/NovaLanding.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">NovaLanding</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                        </li>
+                        <li class="nav-item" id="navDashboard" style="display:none;">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item" id="navPages" style="display:none;">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Pages/Index">My Pages</a>
+                        </li>
+                        <li class="nav-item" id="navMedia" style="display:none;">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Media/Index">Media</a>
+                        </li>
+                        <li class="nav-item" id="navLeads" style="display:none;">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Leads/Index">Leads</a>
+                        </li>
+                        <li class="nav-item" id="navTemplates" style="display:none;">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Templates">Templates</a>
+                        </li>
+                        <li class="nav-item" id="navProfile" style="display:none;">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Profile">Profile</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item" id="navLogin">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Auth/Login">Login</a>
+                        </li>
+                        <li class="nav-item" id="navRegister">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Auth/Register">Register</a>
+                        </li>
+                        <li class="nav-item" id="navLogout" style="display:none;">
+                            <a class="nav-link text-dark" href="#" onclick="logout()">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - NovaLanding - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <script>
+        // Check authentication status and update navigation
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        
+        if (token) {
+            document.getElementById('navLogin').style.display = 'none';
+            document.getElementById('navRegister').style.display = 'none';
+            document.getElementById('navLogout').style.display = 'block';
+            document.getElementById('navDashboard').style.display = 'block';
+            document.getElementById('navPages').style.display = 'block';
+            document.getElementById('navMedia').style.display = 'block';
+            document.getElementById('navLeads').style.display = 'block';
+            document.getElementById('navProfile').style.display = 'block';
+            
+            if (user.role === 'admin') {
+                document.getElementById('navTemplates').style.display = 'block';
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/Auth/Login';
+        }
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

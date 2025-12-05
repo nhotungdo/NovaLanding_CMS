@@ -1,0 +1,83 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = NovaLanding
+build_property.RootNamespace = NovaLanding
+build_property.ProjectDir = F:\OJT-Review\NovaLanding_CMS\NovaLanding_CMS\NovaLanding\NovaLanding\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = F:\OJT-Review\NovaLanding_CMS\NovaLanding_CMS\NovaLanding\NovaLanding
+build_property._RazorSourceGeneratorDebug = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/Admin/Templates.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cVGVtcGxhdGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/Auth/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/Auth/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/Leads/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGVhZHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/Media/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVkaWFcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/Pages/Builder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFnZXNcQnVpbGRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/OJT-Review/NovaLanding_CMS/NovaLanding_CMS/NovaLanding/NovaLanding/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-noxclq0l0d

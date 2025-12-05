@@ -1,0 +1,263 @@
+@page
+@model NovaLanding.Pages.Pages.IndexModel
+@{
+    ViewData["Title"] = "My Pages";
+}
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>My Landing Pages</h2>
+        <button class="btn btn-primary" onclick="createPage()">
+            <i class="bi bi-plus-circle"></i> Create New Page
+        </button>
+    </div>
+    
+    <!-- Filters -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" id="filterStatus">
+                        <option value="">All Status</option>
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Search</label>
+                    <input type="text" class="form-control" id="searchKeyword" placeholder="Search by title or slug">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">&nbsp;</label>
+                    <button class="btn btn-secondary w-100" onclick="loadPages()">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pages Table -->
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Slug</th>
+                            <th>Status</th>
+                            <th>Sections</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pagesTableBody">
+                        <tr>
+                            <td colspan="7" class="text-center">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pagination -->
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center" id="pagination"></ul>
+    </nav>
+</div>
+
+@section Scripts {
+    <script>
+        let currentPage = 1;
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+            window.location.href = '/Auth/Login';
+        }
+        
+        async function loadPages(page = 1) {
+            currentPage = page;
+            const status = document.getElementById('filterStatus').value;
+            const searchKeyword = document.getElementById('searchKeyword').value;
+            
+            const params = new URLSearchParams({
+                page: page,
+                pageSize: 20,
+                status: status,
+                searchKeyword: searchKeyword
+            });
+            
+            try {
+                const response = await fetch(`/api/page?${params}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const data = await response.json();
+                displayPages(data.items, (page - 1) * 20);
+                displayPagination(data.totalPages, page);
+            } catch (error) {
+                console.error('Error loading pages:', error);
+            }
+        }
+        
+        function displayPages(pages, startIndex) {
+            const tbody = document.getElementById('pagesTableBody');
+            
+            if (pages.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center">No pages found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = pages.map((p, idx) => `
+                <tr>
+                    <td>${startIndex + idx + 1}</td>
+                    <td>${p.title}</td>
+                    <td><code>${p.slug}</code></td>
+                    <td><span class="badge bg-${p.status === 'published' ? 'success' : 'secondary'}">${p.status}</span></td>
+                    <td>${p.sectionCount}</td>
+                    <td>${new Date(p.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <a href="/Pages/Builder?id=${p.id}" class="btn btn-primary" title="Edit">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            ${p.status === 'draft' ? 
+                                `<button class="btn btn-success" onclick="publishPage(${p.id})" title="Publish">
+                                    <i class="bi bi-check-circle"></i>
+                                </button>` :
+                                `<button class="btn btn-warning" onclick="unpublishPage(${p.id})" title="Unpublish">
+                                    <i class="bi bi-x-circle"></i>
+                                </button>
+                                <a href="/view/${p.slug}" target="_blank" class="btn btn-info" title="View">
+                                    <i class="bi bi-eye"></i>
+                                </a>`
+                            }
+                            <button class="btn btn-secondary" onclick="clonePage(${p.id})" title="Clone">
+                                <i class="bi bi-files"></i>
+                            </button>
+                            <button class="btn btn-danger" onclick="deletePage(${p.id})" title="Delete">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        function displayPagination(totalPages, currentPage) {
+            const pagination = document.getElementById('pagination');
+            let html = '';
+            
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+                    <a class="page-link" href="#" onclick="loadPages(${i}); return false;">${i}</a>
+                </li>`;
+            }
+            
+            pagination.innerHTML = html;
+        }
+        
+        async function createPage() {
+            const title = prompt('Enter page title:');
+            if (!title) return;
+            
+            try {
+                const response = await fetch('/api/page', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ title })
+                });
+                
+                if (response.ok) {
+                    const page = await response.json();
+                    window.location.href = `/Pages/Builder?id=${page.id}`;
+                } else {
+                    alert('Failed to create page');
+                }
+            } catch (error) {
+                console.error('Error creating page:', error);
+                alert('Failed to create page');
+            }
+        }
+        
+        async function publishPage(id) {
+            if (!confirm('Publish this page? You will need to unpublish before editing.')) return;
+            
+            try {
+                const response = await fetch(`/api/page/${id}/publish`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (response.ok) {
+                    loadPages(currentPage);
+                } else {
+                    const data = await response.json();
+                    alert(data.message || 'Failed to publish page');
+                }
+            } catch (error) {
+                console.error('Error publishing page:', error);
+            }
+        }
+        
+        async function unpublishPage(id) {
+            if (!confirm('Unpublish this page?')) return;
+            
+            try {
+                await fetch(`/api/page/${id}/unpublish`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                loadPages(currentPage);
+            } catch (error) {
+                console.error('Error unpublishing page:', error);
+            }
+        }
+        
+        async function clonePage(id) {
+            if (!confirm('Clone this page?')) return;
+            
+            try {
+                const response = await fetch(`/api/page/${id}/clone`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (response.ok) {
+                    loadPages(currentPage);
+                } else {
+                    alert('Failed to clone page');
+                }
+            } catch (error) {
+                console.error('Error cloning page:', error);
+            }
+        }
+        
+        async function deletePage(id) {
+            if (!confirm('Delete this page? This action cannot be undone.')) return;
+            
+            try {
+                const response = await fetch(`/api/page/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (response.ok) {
+                    loadPages(currentPage);
+                } else {
+                    const data = await response.json();
+                    alert(data.message || 'Failed to delete page');
+                }
+            } catch (error) {
+                console.error('Error deleting page:', error);
+            }
+        }
+        
+        loadPages();
+    </script>
+}

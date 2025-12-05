@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B73FF9DB-38ED-4E6D-8355-F75220A3C784}|NovaLanding\\NovaLanding.csproj|f:\\ojt-review\\novalanding_cms\\novalanding_cms\\novalanding\\novalanding\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B73FF9DB-38ED-4E6D-8355-F75220A3C784}|NovaLanding\\NovaLanding.csproj|solutionrelative:novalanding\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B73FF9DB-38ED-4E6D-8355-F75220A3C784}|NovaLanding\\NovaLanding.csproj|f:\\ojt-review\\novalanding_cms\\novalanding_cms\\novalanding\\novalanding\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B73FF9DB-38ED-4E6D-8355-F75220A3C784}|NovaLanding\\NovaLanding.csproj|solutionrelative:novalanding\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "NovaLanding\\Properties\\launchSettings.json",
+              "ToolTip": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\Properties\\launchSettings.json",
+              "RelativeToolTip": "NovaLanding\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABEAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-05T14:19:14.828Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\appsettings.json",
+              "RelativeDocumentMoniker": "NovaLanding\\appsettings.json",
+              "ToolTip": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\appsettings.json",
+              "RelativeToolTip": "NovaLanding\\appsettings.json",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABcAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-05T14:18:16.837Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

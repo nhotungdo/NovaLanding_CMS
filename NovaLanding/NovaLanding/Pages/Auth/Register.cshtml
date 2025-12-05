@@ -1,0 +1,114 @@
+@page
+@model NovaLanding.Pages.Auth.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Register</h2>
+                    
+                    <div id="errorMessage" class="alert alert-danger d-none"></div>
+                    <div id="successMessage" class="alert alert-success d-none"></div>
+                    
+                    <form id="registerForm">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                            <div class="form-text">Must be a valid email address</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" required minlength="6">
+                            <div class="form-text">Minimum 6 characters</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" required minlength="8">
+                            <div class="form-text">Minimum 8 characters, must contain uppercase, lowercase and numbers</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">Register</button>
+                    </form>
+                    
+                    <div class="text-center mt-3">
+                        <p>Already have an account? <a href="/Auth/Login">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validate password match
+            if (password !== confirmPassword) {
+                showError('Passwords do not match');
+                return;
+            }
+            
+            // Validate password strength
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                showError('Password must contain uppercase, lowercase and numbers');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showSuccess('Registration successful! Redirecting to login...');
+                    setTimeout(() => {
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('user', JSON.stringify(data));
+                        window.location.href = '/Dashboard';
+                    }, 1500);
+                } else {
+                    showError(data.message || 'Registration failed');
+                }
+            } catch (error) {
+                showError('An error occurred. Please try again.');
+            }
+        });
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('d-none');
+            document.getElementById('successMessage').classList.add('d-none');
+        }
+        
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.classList.remove('d-none');
+            document.getElementById('errorMessage').classList.add('d-none');
+        }
+    </script>
+}
