@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NovaLanding")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e79b9f718a9a3c5521ff7dc26eb36261ea2d9418")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff1a2e2db0860ade200714ad950f29274d3f1c09")]
 [assembly: System.Reflection.AssemblyProductAttribute("NovaLanding")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NovaLanding")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
