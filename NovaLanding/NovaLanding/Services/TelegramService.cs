@@ -219,4 +219,40 @@ public class TelegramService : ITelegramService
             _logger.LogError(ex, "Error sending new lead notification");
         }
     }
+
+    public async Task NotifyFormSubmissionAsync(string formName, string dataJson)
+    {
+        try
+        {
+            if (_adminChatId == null)
+            {
+                return;
+            }
+
+            var message = $"📝 <b>New Form Submission</b>\n\n" +
+                         $"📋 Form: {formName}\n" +
+                         $"🕐 Time: {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} UTC\n\n" +
+                         $"<b>Data:</b>\n{dataJson}";
+
+            await SendMessageAsync(_adminChatId.Value, message);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error sending form submission notification");
+        }
+    }
+
+    public async Task SendTestNotificationAsync()
+    {
+        if (_adminChatId == null)
+        {
+            throw new InvalidOperationException("Admin chat ID not configured");
+        }
+
+        var message = $"✅ <b>Test Notification</b>\n\n" +
+                     $"Telegram integration is working correctly!\n" +
+                     $"🕐 Time: {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} UTC";
+
+        await SendMessageAsync(_adminChatId.Value, message);
+    }
 }

@@ -1,0 +1,22 @@
+@model dynamic
+
+@{
+    var content = Model?.content ?? Model;
+    var images = content?.images as List<string> ?? new List<string>();
+}
+
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach (var image in images)
+            {
+                <div class="relative group overflow-hidden rounded-lg shadow-lg">
+                    <img src="@image" 
+                         alt="Gallery image" 
+                         class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-300" />
+                    <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity"></div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

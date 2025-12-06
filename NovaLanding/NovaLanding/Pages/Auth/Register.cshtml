@@ -1,66 +1,194 @@
 @page
 @model NovaLanding.Pages.Auth.RegisterModel
+@inject IConfiguration Configuration
 @{
-    ViewData["Title"] = "Register";
+    Layout = null;
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow">
-                <div class="card-body p-5">
-                    <h2 class="text-center mb-4">Register</h2>
-                    
-                    <div id="errorMessage" class="alert alert-danger d-none"></div>
-                    <div id="successMessage" class="alert alert-success d-none"></div>
-                    
-                    <form id="registerForm">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" required>
-                            <div class="form-text">Must be a valid email address</div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" required minlength="6">
-                            <div class="form-text">Minimum 6 characters</div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" required minlength="8">
-                            <div class="form-text">Minimum 8 characters, must contain uppercase, lowercase and numbers</div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="confirmPassword" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirmPassword" required>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary w-100">Register</button>
-                    </form>
-                    
-                    <div class="text-center mt-3">
-                        <p>Already have an account? <a href="/Auth/Login">Login here</a></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create account - NovaLanding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        .input-focus:focus { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+        .btn-hover:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); }
+        .btn-active:active { transform: translateY(0); }
+    </style>
+</head>
+<body class="bg-[#fafafa] min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8">
+    <div class="w-full max-w-[420px]">
+        <!-- Logo -->
+        <div class="text-center mb-10">
+            <a href="/" class="inline-flex items-center justify-center gap-2 mb-8 group">
+                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <span class="text-xl font-semibold text-gray-900">NovaLanding</span>
+            </a>
+            <h1 class="text-2xl font-semibold text-gray-900 mb-2">Create your account</h1>
+            <p class="text-sm text-gray-500">Start building amazing landing pages today</p>
+        </div>
+        
+        <!-- Register Card -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+            <div id="errorMessage" class="hidden mb-5 p-3.5 bg-red-50 border border-red-100 text-red-600 rounded-lg text-sm">
+                <span id="errorText"></span>
+            </div>
+            
+            <form id="registerForm" class="space-y-4">
+                <!-- Username -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1.5" for="username">
+                        Username
+                    </label>
+                    <input type="text" 
+                           id="username"
+                           class="input-focus w-full px-3.5 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-all"
+                           placeholder="johndoe"
+                           required />
+                </div>
+                
+                <!-- Email -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1.5" for="email">
+                        Email
+                    </label>
+                    <input type="email" 
+                           id="email"
+                           class="input-focus w-full px-3.5 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-all"
+                           placeholder="name@company.com"
+                           required />
+                </div>
+                
+                <!-- Password -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1.5" for="password">
+                        Password
+                    </label>
+                    <div class="relative">
+                        <input type="password" 
+                               id="password"
+                               class="input-focus w-full px-3.5 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-all pr-10"
+                               placeholder="Create a strong password"
+                               required />
+                        <button type="button" 
+                                onclick="togglePassword('password', 'toggleIcon1')"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
+                            <svg id="toggleIcon1" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1.5">Must be at least 8 characters with uppercase, lowercase, and number</p>
+                </div>
+                
+                <!-- Confirm Password -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1.5" for="confirmPassword">
+                        Confirm Password
+                    </label>
+                    <div class="relative">
+                        <input type="password" 
+                               id="confirmPassword"
+                               class="input-focus w-full px-3.5 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-all pr-10"
+                               placeholder="Re-enter your password"
+                               required />
+                        <button type="button" 
+                                onclick="togglePassword('confirmPassword', 'toggleIcon2')"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
+                            <svg id="toggleIcon2" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
+                
+                <!-- Terms & Conditions -->
+                <div class="pt-1">
+                    <label class="flex items-start cursor-pointer">
+                        <input type="checkbox" id="terms" class="w-4 h-4 mt-0.5 text-blue-500 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:ring-offset-0" required>
+                        <span class="ml-2 text-sm text-gray-600">
+                            I agree to the <a href="/privacy" class="text-blue-600 hover:text-blue-700 font-medium transition-colors">Terms of Service</a> 
+                            and <a href="/privacy" class="text-blue-600 hover:text-blue-700 font-medium transition-colors">Privacy Policy</a>
+                        </span>
+                    </label>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" 
+                        id="registerBtn"
+                        class="btn-hover btn-active w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition-all duration-200 text-sm mt-6">
+                    Create account
+                </button>
+            </form>
+            
+            <!-- Divider -->
+            <div class="relative my-6">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-200"></div>
+                </div>
+                <div class="relative flex justify-center text-xs">
+                    <span class="px-3 bg-white text-gray-400 uppercase tracking-wider">Or continue with</span>
+                </div>
+            </div>
+            
+            <!-- Google Register -->
+            <div id="googleBtn" class="flex justify-center"></div>
+            
+            <!-- Login Link -->
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-600">
+                    Already have an account? 
+                    <a href="/auth/login" class="text-blue-600 hover:text-blue-700 font-medium transition-colors">
+                        Sign in
+                    </a>
+                </p>
             </div>
         </div>
+        
+        <!-- Footer -->
+        <div class="text-center mt-8">
+            <p class="text-xs text-gray-400">&copy; @DateTime.Now.Year NovaLanding. All rights reserved.</p>
+        </div>
     </div>
-</div>
-
-@section Scripts {
+    
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
+        function togglePassword(inputId, iconId) {
+            const passwordInput = document.getElementById(inputId);
+            const toggleIcon = document.getElementById(iconId);
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />';
+            }
+        }
+        
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const email = document.getElementById('email').value;
             const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
+            const registerBtn = document.getElementById('registerBtn');
             
-            // Validate password match
+            // Validate passwords match
             if (password !== confirmPassword) {
                 showError('Passwords do not match');
                 return;
@@ -69,46 +197,83 @@
             // Validate password strength
             const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
             if (!passwordRegex.test(password)) {
-                showError('Password must contain uppercase, lowercase and numbers');
+                showError('Password must be at least 8 characters with uppercase, lowercase, and number');
                 return;
             }
+            
+            registerBtn.disabled = true;
+            registerBtn.innerHTML = '<svg class="animate-spin h-4 w-4 mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
             
             try {
                 const response = await fetch('/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, username, password })
+                    body: JSON.stringify({ username, email, password })
                 });
                 
                 const data = await response.json();
                 
                 if (response.ok) {
-                    showSuccess('Registration successful! Redirecting to login...');
-                    setTimeout(() => {
-                        localStorage.setItem('token', data.token);
-                        localStorage.setItem('user', JSON.stringify(data));
-                        window.location.href = '/Dashboard';
-                    }, 1500);
+                    // Show success message and redirect
+                    alert('Registration successful! Please check your email to verify your account.');
+                    window.location.href = '/auth/login';
                 } else {
                     showError(data.message || 'Registration failed');
                 }
             } catch (error) {
                 showError('An error occurred. Please try again.');
+            } finally {
+                registerBtn.disabled = false;
+                registerBtn.innerHTML = 'Create account';
+            }
+        });
+        
+        function handleGoogleLogin(response) {
+            fetch('/api/auth/google-login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ idToken: response.credential })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data));
+                    window.location.href = '/dashboard';
+                } else {
+                    showError('Google registration failed');
+                }
+            })
+            .catch(() => showError('An error occurred with Google registration'));
+        }
+        
+        window.addEventListener('load', () => {
+            try {
+                const clientId = '@Configuration["Authentication:Google:ClientId"]';
+                if (clientId && clientId !== 'YOUR_GOOGLE_CLIENT_ID') {
+                    google.accounts.id.initialize({
+                        client_id: clientId,
+                        callback: handleGoogleLogin,
+                        ux_mode: 'popup',
+                        use_fedcm_for_prompt: false
+                    });
+                    google.accounts.id.renderButton(
+                        document.getElementById('googleBtn'),
+                        { theme: 'outline', size: 'large', width: '100%', text: 'signup_with' }
+                    );
+                }
+            } catch (e) {
+                console.error('Google Identity initialization failed', e);
             }
         });
         
         function showError(message) {
             const errorDiv = document.getElementById('errorMessage');
-            errorDiv.textContent = message;
-            errorDiv.classList.remove('d-none');
-            document.getElementById('successMessage').classList.add('d-none');
-        }
-        
-        function showSuccess(message) {
-            const successDiv = document.getElementById('successMessage');
-            successDiv.textContent = message;
-            successDiv.classList.remove('d-none');
-            document.getElementById('errorMessage').classList.add('d-none');
+            const errorText = document.getElementById('errorText');
+            errorText.textContent = message;
+            errorDiv.classList.remove('hidden');
+            setTimeout(() => errorDiv.classList.add('hidden'), 5000);
         }
     </script>
-}
+</body>
+</html>

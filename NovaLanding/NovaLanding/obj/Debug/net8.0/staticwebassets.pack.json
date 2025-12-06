@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\NovaLanding.bundle.scp.css"
     },
     {
+      "Id": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\wwwroot\\css\\home.css",
+      "PackagePath": "staticwebassets\\css\\home.css"
+    },
+    {
       "Id": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -13,8 +17,36 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\wwwroot\\js\\admin.js",
+      "PackagePath": "staticwebassets\\js\\admin.js"
+    },
+    {
+      "Id": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\wwwroot\\js\\dashboard.js",
+      "PackagePath": "staticwebassets\\js\\dashboard.js"
+    },
+    {
+      "Id": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\wwwroot\\js\\header.js",
+      "PackagePath": "staticwebassets\\js\\header.js"
+    },
+    {
+      "Id": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\wwwroot\\js\\home-tests.js",
+      "PackagePath": "staticwebassets\\js\\home-tests.js"
+    },
+    {
+      "Id": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\wwwroot\\js\\home.js",
+      "PackagePath": "staticwebassets\\js\\home.js"
+    },
+    {
+      "Id": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\wwwroot\\js\\image-upload.js",
+      "PackagePath": "staticwebassets\\js\\image-upload.js"
+    },
+    {
       "Id": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\wwwroot\\js\\lead-form.js",
       "PackagePath": "staticwebassets\\js\\lead-form.js"
+    },
+    {
+      "Id": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\wwwroot\\js\\section-builder.js",
+      "PackagePath": "staticwebassets\\js\\section-builder.js"
     },
     {
       "Id": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\wwwroot\\js\\site.js",
@@ -247,6 +279,14 @@
     {
       "Id": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\wwwroot\\uploads\\2025\\12\\06\\18e44e54-6455-44b8-8d8c-1cbd86d307b8.png",
+      "PackagePath": "staticwebassets\\uploads\\2025\\12\\06\\18e44e54-6455-44b8-8d8c-1cbd86d307b8.png"
+    },
+    {
+      "Id": "F:\\OJT-Review\\NovaLanding_CMS\\NovaLanding_CMS\\NovaLanding\\NovaLanding\\wwwroot\\uploads\\2025\\12\\06\\73d6e30c-4381-47ee-9fa2-c544395d073c.jpg",
+      "PackagePath": "staticwebassets\\uploads\\2025\\12\\06\\73d6e30c-4381-47ee-9fa2-c544395d073c.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.NovaLanding.Microsoft.AspNetCore.StaticWebAssets.props",

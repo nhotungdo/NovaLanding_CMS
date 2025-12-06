@@ -1,0 +1,29 @@
+@model dynamic
+
+@{
+    var content = Model?.content ?? Model;
+    var heading = content?.heading ?? "Ready to Get Started?";
+    var description = content?.description ?? "";
+    var buttonText = content?.buttonText ?? "Get Started";
+    var buttonLink = content?.buttonLink ?? "#";
+}
+
+<section class="py-20 bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6">
+                @heading
+            </h2>
+            @if (!string.IsNullOrEmpty(description))
+            {
+                <p class="text-xl mb-8 text-gray-100">
+                    @description
+                </p>
+            }
+            <a href="@buttonLink" 
+               class="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg">
+                @buttonText
+            </a>
+        </div>
+    </div>
+</section>

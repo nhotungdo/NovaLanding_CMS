@@ -9,4 +9,6 @@ public interface ITelegramService
     Task NotifyAdminRegistrationAsync(string email, string ipAddress);
     Task NotifyPagePublishedAsync(long userId, string pageTitle, string pageSlug);
     Task NotifyNewLeadAsync(long userId, string pageTitle, Dictionary<string, string> formData);
+    Task NotifyFormSubmissionAsync(string formName, string dataJson);
+    Task SendTestNotificationAsync();
 }

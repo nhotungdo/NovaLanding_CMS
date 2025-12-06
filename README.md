@@ -162,9 +162,11 @@
    ```
 
 8. **Access the application**
-   - Application: `https://localhost:5001`
-   - Login: `https://localhost:5001/Auth/Login`
-   - Dashboard: `https://localhost:5001/Dashboard`
+   - **Home Page**: `https://localhost:5001/` (automatically redirects)
+   - **Login**: `https://localhost:5001/Auth/Login`
+   - **Dashboard**: `https://localhost:5001/Dashboard`
+   
+   > 🎉 **New!** The home page is now live with automatic routing!
 
 ### Quick Start Script
 
@@ -246,6 +248,14 @@ See [TELEGRAM_NOTIFICATIONS.md](NovaLanding/TELEGRAM_NOTIFICATIONS.md) for detai
 
 ## 📸 Screenshots
 
+### 🏠 Home Page (NEW!)
+Modern, responsive landing page with:
+- Hero section with call-to-action
+- Features showcase
+- Pricing plans
+- Contact form
+- Automatic routing from root URL
+
 ### Dashboard
 The main dashboard provides an overview of your pages, leads, and analytics.
 
@@ -259,6 +269,7 @@ Track and manage all leads captured from your landing pages.
 Browse and customize pre-built templates for different sections.
 
 > 💡 **Tip**: Check the `/Pages` directory for all available views and interfaces.
+> 📖 **New Documentation**: See [QUICK_START_HOME_PAGE.md](NovaLanding/QUICK_START_HOME_PAGE.md) for home page details.
 
 ## 🔌 API Endpoints
 
@@ -513,6 +524,8 @@ NovaLanding/
 ## 📚 Documentation
 
 - **[Setup Guide](NovaLanding/SETUP.md)** - Complete installation instructions
+- **[Home Page Quick Start](NovaLanding/QUICK_START_HOME_PAGE.md)** - Get started with the home page in 3 steps
+- **[Home Page Documentation](NovaLanding/HOME_PAGE_DOCUMENTATION.md)** - Detailed home page features and customization
 - **[Telegram Notifications](NovaLanding/TELEGRAM_NOTIFICATIONS.md)** - Telegram integration guide
 - **[Features Complete](NovaLanding/FEATURES_COMPLETE.txt)** - Implemented features list
 

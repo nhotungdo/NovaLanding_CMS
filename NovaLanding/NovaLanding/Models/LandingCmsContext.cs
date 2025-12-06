@@ -29,6 +29,32 @@ public partial class LandingCmsContext : DbContext
 
     public virtual DbSet<PageView> PageViews { get; set; }
 
+    public virtual DbSet<Post> Posts { get; set; }
+
+    public virtual DbSet<Category> Categories { get; set; }
+
+    public virtual DbSet<Tag> Tags { get; set; }
+
+    public virtual DbSet<PostCategory> PostCategories { get; set; }
+
+    public virtual DbSet<PostTag> PostTags { get; set; }
+
+    public virtual DbSet<Menu> Menus { get; set; }
+
+    public virtual DbSet<MenuItem> MenuItems { get; set; }
+
+    public virtual DbSet<Form> Forms { get; set; }
+
+    public virtual DbSet<Submission> Submissions { get; set; }
+
+    public virtual DbSet<Setting> Settings { get; set; }
+
+    public virtual DbSet<ActivityLog> ActivityLogs { get; set; }
+
+    public virtual DbSet<Role> Roles { get; set; }
+
+    public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=NHOTUNG\\SQLEXPRESS;Database=landing_cms;User Id=sa;Password=123;TrustServerCertificate=true;Trusted_Connection=SSPI;Encrypt=false;");
@@ -243,6 +269,175 @@ public partial class LandingCmsContext : DbContext
             entity.HasOne(d => d.Page).WithMany(p => p.PageViews)
                 .HasForeignKey(d => d.PageId)
                 .HasConstraintName("FK__page_views__page_id");
+        });
+
+        modelBuilder.Entity<Post>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.ToTable("posts");
+            entity.HasIndex(e => e.Slug).IsUnique();
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Title).HasMaxLength(200).HasColumnName("title");
+            entity.Property(e => e.Slug).HasMaxLength(200).HasColumnName("slug");
+            entity.Property(e => e.Content).HasColumnName("content");
+            entity.Property(e => e.Excerpt).HasMaxLength(500).HasColumnName("excerpt");
+            entity.Property(e => e.ThumbnailId).HasColumnName("thumbnail_id");
+            entity.Property(e => e.Status).HasMaxLength(20).HasDefaultValue("draft").HasColumnName("status");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.PublishedAt).HasColumnName("published_at");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())").HasColumnName("created_at");
+            entity.Property(e => e.UpdatedAt).HasDefaultValueSql("(getdate())").HasColumnName("updated_at");
+            entity.HasOne(d => d.User).WithMany().HasForeignKey(d => d.UserId);
+            entity.HasOne(d => d.Thumbnail).WithMany().HasForeignKey(d => d.ThumbnailId);
+        });
+
+        modelBuilder.Entity<Category>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.ToTable("categories");
+            entity.HasIndex(e => e.Slug).IsUnique();
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Name).HasMaxLength(100).HasColumnName("name");
+            entity.Property(e => e.Slug).HasMaxLength(100).HasColumnName("slug");
+            entity.Property(e => e.Description).HasMaxLength(500).HasColumnName("description");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())").HasColumnName("created_at");
+        });
+
+        modelBuilder.Entity<Tag>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.ToTable("tags");
+            entity.HasIndex(e => e.Slug).IsUnique();
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Name).HasMaxLength(100).HasColumnName("name");
+            entity.Property(e => e.Slug).HasMaxLength(100).HasColumnName("slug");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())").HasColumnName("created_at");
+        });
+
+        modelBuilder.Entity<PostCategory>(entity =>
+        {
+            entity.HasKey(e => new { e.PostId, e.CategoryId });
+            entity.ToTable("post_categories");
+            entity.Property(e => e.PostId).HasColumnName("post_id");
+            entity.Property(e => e.CategoryId).HasColumnName("category_id");
+            entity.HasOne(d => d.Post).WithMany(p => p.PostCategories).HasForeignKey(d => d.PostId);
+            entity.HasOne(d => d.Category).WithMany(p => p.PostCategories).HasForeignKey(d => d.CategoryId);
+        });
+
+        modelBuilder.Entity<PostTag>(entity =>
+        {
+            entity.HasKey(e => new { e.PostId, e.TagId });
+            entity.ToTable("post_tags");
+            entity.Property(e => e.PostId).HasColumnName("post_id");
+            entity.Property(e => e.TagId).HasColumnName("tag_id");
+            entity.HasOne(d => d.Post).WithMany(p => p.PostTags).HasForeignKey(d => d.PostId);
+            entity.HasOne(d => d.Tag).WithMany(p => p.PostTags).HasForeignKey(d => d.TagId);
+        });
+
+        modelBuilder.Entity<Menu>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.ToTable("menus");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Name).HasMaxLength(100).HasColumnName("name");
+            entity.Property(e => e.Location).HasMaxLength(50).HasColumnName("location");
+            entity.Property(e => e.IsActive).HasDefaultValue(true).HasColumnName("is_active");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())").HasColumnName("created_at");
+            entity.Property(e => e.UpdatedAt).HasDefaultValueSql("(getdate())").HasColumnName("updated_at");
+        });
+
+        modelBuilder.Entity<MenuItem>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.ToTable("menu_items");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.MenuId).HasColumnName("menu_id");
+            entity.Property(e => e.ParentId).HasColumnName("parent_id");
+            entity.Property(e => e.Label).HasMaxLength(100).HasColumnName("label");
+            entity.Property(e => e.Url).HasMaxLength(500).HasColumnName("url");
+            entity.Property(e => e.OrderNum).HasColumnName("order_num");
+            entity.Property(e => e.IsActive).HasDefaultValue(true).HasColumnName("is_active");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())").HasColumnName("created_at");
+            entity.HasOne(d => d.Menu).WithMany(p => p.MenuItems).HasForeignKey(d => d.MenuId);
+            entity.HasOne(d => d.Parent).WithMany(p => p.Children).HasForeignKey(d => d.ParentId);
+        });
+
+        modelBuilder.Entity<Form>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.ToTable("forms");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Name).HasMaxLength(100).HasColumnName("name");
+            entity.Property(e => e.Description).HasMaxLength(500).HasColumnName("description");
+            entity.Property(e => e.FieldsJson).HasColumnName("fields_json");
+            entity.Property(e => e.IsActive).HasDefaultValue(true).HasColumnName("is_active");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())").HasColumnName("created_at");
+            entity.Property(e => e.UpdatedAt).HasDefaultValueSql("(getdate())").HasColumnName("updated_at");
+            entity.HasOne(d => d.User).WithMany().HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<Submission>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.ToTable("submissions");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.FormId).HasColumnName("form_id");
+            entity.Property(e => e.DataJson).HasColumnName("data_json");
+            entity.Property(e => e.IpAddress).HasMaxLength(50).HasColumnName("ip_address");
+            entity.Property(e => e.UserAgent).HasMaxLength(500).HasColumnName("user_agent");
+            entity.Property(e => e.SubmittedAt).HasDefaultValueSql("(getdate())").HasColumnName("submitted_at");
+            entity.HasOne(d => d.Form).WithMany(p => p.Submissions).HasForeignKey(d => d.FormId);
+        });
+
+        modelBuilder.Entity<Setting>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.ToTable("settings");
+            entity.HasIndex(e => e.Key).IsUnique();
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Key).HasMaxLength(100).HasColumnName("key");
+            entity.Property(e => e.Value).HasColumnName("value");
+            entity.Property(e => e.Description).HasMaxLength(500).HasColumnName("description");
+            entity.Property(e => e.UpdatedAt).HasDefaultValueSql("(getdate())").HasColumnName("updated_at");
+        });
+
+        modelBuilder.Entity<ActivityLog>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.ToTable("activity_logs");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.Action).HasMaxLength(100).HasColumnName("action");
+            entity.Property(e => e.EntityType).HasMaxLength(50).HasColumnName("entity_type");
+            entity.Property(e => e.EntityId).HasColumnName("entity_id");
+            entity.Property(e => e.Details).HasColumnName("details");
+            entity.Property(e => e.IpAddress).HasMaxLength(50).HasColumnName("ip_address");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())").HasColumnName("created_at");
+            entity.HasOne(d => d.User).WithMany().HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.ToTable("roles");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Name).HasMaxLength(50).HasColumnName("name");
+            entity.Property(e => e.Description).HasMaxLength(200).HasColumnName("description");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())").HasColumnName("created_at");
+        });
+
+        modelBuilder.Entity<RefreshToken>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.ToTable("refresh_tokens");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.Token).HasMaxLength(500).HasColumnName("token");
+            entity.Property(e => e.ExpiresAt).HasColumnName("expires_at");
+            entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+            entity.Property(e => e.IsRevoked).HasColumnName("is_revoked");
+            entity.HasOne(d => d.User).WithMany().HasForeignKey(d => d.UserId);
         });
 
         OnModelCreatingPartial(modelBuilder);
