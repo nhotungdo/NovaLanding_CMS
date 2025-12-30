@@ -1,0 +1,7 @@
+{
+  "name": "Lando - No-Code Landing Page Builder",
+  "description": "A powerful, intuitive landing page builder that allows anyone to create professional websites without coding. Features a visual drag-and-drop interface, pre-built sections, AI-powered content generation, and real-time preview.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
