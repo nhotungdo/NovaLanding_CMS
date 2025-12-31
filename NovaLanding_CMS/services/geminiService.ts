@@ -1,5 +1,6 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
+import { searchImages, generateSearchQuery } from './unsplashService';
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
 
@@ -61,6 +62,12 @@ export const generateCopyForNiche = async (niche: string) => {
   });
 
   return JSON.parse(response.text);
+};
+
+// Hàm mới: Lấy ảnh phù hợp với niche từ Unsplash
+export const getRelevantImage = async (niche: string, sectionType: 'hero' | 'about' | 'features'): Promise<string | null> => {
+  const searchQuery = generateSearchQuery(niche, sectionType);
+  return await searchImages(searchQuery);
 };
 
 export const generateImage = async (prompt: string): Promise<string | null> => {

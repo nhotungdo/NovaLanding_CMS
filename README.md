@@ -1,513 +1,164 @@
-<div align="center">
-
-# 🚀 NovaLanding CMS
-
-### Modern Landing Page Builder & Content Management System
-
-[![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
-[![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-8.0-512BD4)](https://docs.microsoft.com/aspnet/core)
-[![SQL Server](https://img.shields.io/badge/SQL%20Server-2019+-CC2927?logo=microsoft-sql-server)](https://www.microsoft.com/sql-server)
-[![Entity Framework](https://img.shields.io/badge/EF%20Core-8.0-512BD4)](https://docs.microsoft.com/ef/core)
-[![JWT](https://img.shields.io/badge/JWT-Authentication-000000?logo=json-web-tokens)](https://jwt.io/)
-[![Telegram](https://img.shields.io/badge/Telegram-Bot%20API-26A5E4?logo=telegram)](https://core.telegram.org/bots/api)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap)](https://getbootstrap.com/)
-[![License](https://img.shields.io/badge/license-Proprietary-red.svg)](#)
-
-**NovaLanding** is a powerful, no-code landing page builder that empowers marketers to create stunning landing pages without writing a single line of code. Built with ASP.NET Core 8, it features a drag-and-drop interface, real-time Telegram notifications, and comprehensive lead management.
-
-[Features](#-features) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [API Reference](#-api-endpoints)
-
-</div>
-
----
-
-## ✨ Features
-
-### 🎨 **No-Code Page Builder**
-
-- Drag-and-drop section builder with pre-built templates
-- Real-time preview and editing
-- Responsive design out of the box
-- Custom styling and branding options
-- SEO-friendly page generation
-
-### 🔐 **Authentication & Security**
-
-- Traditional email/password registration
-- Google OAuth 2.0 integration
-- JWT token-based authentication
-- BCrypt password encryption
-- Role-based access control (Admin/Marketer)
-- Secure API endpoints with authorization
-
-### 📱 **Telegram Integration**
-
-- Real-time notifications for:
-  - New user registrations
-  - User login events
-  - Page publishing
-  - New lead submissions
-- Admin and user notifications
-- Customizable message templates
-<!--
-  README cho phần frontend của NovaLanding (thư mục: NovaLanding_CMS/NovaLanding_CMS).
-  Tập trung: cài đặt nhanh, cấu trúc thư mục, file quan trọng và hướng dẫn dev.
--->
-
-# NovaLanding CMS — Frontend (React + TypeScript)
-
-Phần frontend của NovaLanding — một công cụ xây dựng landing page. Ứng dụng dùng React + TypeScript và chạy trên Vite để phát triển nhanh.
-
-## Tóm tắt
-
-- Tech: React, TypeScript, Vite
-- Thư mục chính: `components/`, `services/`, `index.tsx`, `App.tsx`
-
-## Yêu cầu
-
-- Node.js 18+ (LTS khuyến nghị)
-- npm hoặc yarn
-
-## Cài đặt & chạy (development)
-
-Trên Windows (PowerShell/CMD):
-
-```powershell
-npm install
-npm run dev
-```
-
-## Build & preview
-
-```powershell
-npm run build
-npm run preview
-```
-
-## Cấu trúc chính
-
-- `index.html` — entry file cho Vite
-- `index.tsx`, `App.tsx` — điểm khởi tạo React
-- `components/` — các component UI (Editor, SectionPreview, Icons...)
-- `services/` — service gọi API / helper (ví dụ `geminiService.ts`)
-- `types.ts`, `constants.ts` — kiểu và hằng số chung
-- `vite.config.ts`, `tsconfig.json` — cấu hình dự án
-
-## File đáng chú ý
-
-- `components/Editor.tsx` — editor chính để biên tập trang
-- `components/SectionPreview.tsx` — xem trước section
-- `services/geminiService.ts` — logic gọi API/gemini
-
-## Quy ước
-
-- Viết component nhỏ, rõ ràng, có `Props`/`State` typed.
-- Tách logic API vào `services/` để dễ test và mock.
-
-## Gợi ý cải thiện
-
-- Thêm `ENV.md` cho biến môi trường (API_URL, TELEGRAM_TOKEN...)
-- Thêm `start.bat` cho Windows (nếu cần)
-- Nếu cần tích hợp backend, thêm hướng dẫn proxy trong `vite.config.ts`.
-
-## Muốn tôi làm tiếp?
-
-- Tôi có thể: tạo `start.bat`, thêm tài liệu biến môi trường, hoặc cập nhật README chi tiết hơn.
-
----
-
-_Đã cập nhật README cho frontend._
-| Method | Endpoint | Description | Auth Required |
-| ------ | ------------------ | -------------------- | ------------- |
-| `GET` | `/api/lead` | Get all leads | ✅ |
-| `GET` | `/api/lead/{id}` | Get lead by ID | ✅ |
-| `POST` | `/api/lead/submit` | Submit form (public) | ❌ |
-| `GET` | `/api/lead/export` | Export leads to CSV | ✅ |
-
-### Media
-
-| Method   | Endpoint            | Description         | Auth Required |
-| -------- | ------------------- | ------------------- | ------------- |
-| `GET`    | `/api/media`        | Get all media files | ✅            |
-| `GET`    | `/api/media/{id}`   | Get media by ID     | ✅            |
-| `POST`   | `/api/media/upload` | Upload file         | ✅            |
-| `DELETE` | `/api/media/{id}`   | Delete file         | ✅            |
-
-### Public Endpoints
-
-| Method | Endpoint                  | Description         | Auth Required |
-| ------ | ------------------------- | ------------------- | ------------- |
-| `GET`  | `/view/{slug}`            | View published page | ❌            |
-| `POST` | `/api/public/submit-lead` | Submit lead form    | ❌            |
-
-## 🏗️ Architecture
-
-### Tech Stack
-
-**Backend**
-
-- ASP.NET Core 8.0 (Razor Pages + Web API)
-- Entity Framework Core 8.0
-- SQL Server 2019+
-- JWT Authentication
-- BCrypt Password Hashing
-
-**Frontend**
-
-- Razor Pages (Server-side rendering)
-- Bootstrap 5
-- JavaScript (Vanilla)
-- Google OAuth 2.0
-
-**Integrations**
-
-- Telegram Bot API
-- Google OAuth 2.0
-- HttpClient for external APIs
-
-### Project Structure
-
-```
-NovaLanding/
-├── NovaLanding/
-│   ├── Controllers/              # API Controllers
-│   │   ├── AuthController.cs     # Authentication endpoints
-│   │   ├── PageController.cs     # Page management
-│   │   ├── TemplateController.cs # Template CRUD
-│   │   ├── MediaController.cs    # File uploads
-│   │   ├── LeadController.cs     # Lead management
-│   │   └── PublicController.cs   # Public page viewing
-│   ├── Services/                 # Business logic layer
-│   │   ├── IAuthService.cs
-│   │   ├── AuthService.cs
-│   │   ├── ITelegramService.cs
-│   │   ├── TelegramService.cs
-│   │   ├── IPageService.cs
-│   │   ├── PageService.cs
-│   │   ├── ITemplateService.cs
-│   │   ├── TemplateService.cs
-│   │   ├── IMediaService.cs
-│   │   ├── MediaService.cs
-│   │   ├── ILeadService.cs
-│   │   └── LeadService.cs
-│   ├── Models/                   # Entity models
-│   │   ├── LandingCmsContext.cs  # EF Core DbContext
-│   │   ├── User.cs
-│   │   ├── Page.cs
-│   │   ├── PageSection.cs
-│   │   ├── BlocksTemplate.cs
-│   │   ├── Medium.cs
-│   │   ├── Lead.cs
-│   │   └── PageView.cs
-│   ├── DTOs/                     # Data Transfer Objects
-│   │   ├── AuthDTOs.cs
-│   │   ├── PageDTOs.cs
-│   │   ├── TemplateDTOs.cs
-│   │   ├── MediaDTOs.cs
-│   │   └── LeadDTOs.cs
-│   ├── Middleware/
-│   │   └── RoleAuthorizationAttribute.cs
-│   ├── Pages/                    # Razor Pages
-│   │   ├── Auth/
-│   │   │   ├── Login.cshtml
-│   │   │   └── Register.cshtml
-│   │   ├── Pages/
-│   │   │   ├── Index.cshtml
-│   │   │   └── Builder.cshtml
-│   │   ├── Admin/
-│   │   │   └── Templates.cshtml
-│   │   ├── Leads/
-│   │   │   └── Index.cshtml
-│   │   ├── Media/
-│   │   │   └── Index.cshtml
-│   │   ├── Dashboard.cshtml
-│   │   └── Profile.cshtml
-│   ├── wwwroot/                  # Static files
-│   │   ├── css/
-│   │   ├── js/
-│   │   └── uploads/
-│   ├── Database/                 # SQL scripts
-│   │   ├── create_leads_tables.sql
-│   │   └── sample_form_template.sql
-│   ├── appsettings.json
-│   └── Program.cs
-├── landing_cms.sql               # Database schema
-├── SETUP.md                      # Setup guide
-├── TELEGRAM_NOTIFICATIONS.md     # Telegram integration docs
-└── README.md
-```
-
-### Design Patterns
-
-- **Service Layer Pattern**: Business logic separated from controllers
-- **Repository Pattern**: Data access through EF Core DbContext
-- **Dependency Injection**: All services registered in Program.cs
-- **DTO Pattern**: Data transfer objects for API requests/responses
-- **Middleware Pattern**: Custom authorization attributes
-
-## 🗄️ Database Schema
-
-### Core Tables
-
-**users**
-
-- `id` (bigint, PK)
-- `email` (varchar, unique)
-- `username` (varchar, unique)
-- `password` (varchar, hashed)
-- `role` (varchar: admin/marketer)
-- `telegram_chat_id` (bigint, nullable)
-- `created_at`, `updated_at`
-
-**pages**
-
-- `id` (bigint, PK)
-- `user_id` (bigint, FK)
-- `title`, `slug` (varchar, unique)
-- `meta_title`, `meta_description`
-- `is_published` (bit)
-- `created_at`, `updated_at`
-
-**page_sections**
-
-- `id` (bigint, PK)
-- `page_id` (bigint, FK)
-- `template_id` (bigint, FK)
-- `content` (nvarchar(max), JSON)
-- `order_index` (int)
-- `is_visible` (bit)
-
-**blocks_templates**
-
-- `id` (bigint, PK)
-- `name`, `type` (varchar)
-- `html_template` (nvarchar(max))
-- `css_template` (nvarchar(max))
-- `js_template` (nvarchar(max))
-- `default_content` (nvarchar(max), JSON)
-
-**leads**
-
-- `id` (bigint, PK)
-- `page_id` (bigint, FK)
-- `form_data` (nvarchar(max), JSON)
-- `ip_address` (varchar)
-- `user_agent` (varchar)
-- `created_at`
-
-**media**
-
-- `id` (bigint, PK)
-- `user_id` (bigint, FK)
-- `filename`, `file_path`
-- `file_size` (bigint)
-- `mime_type` (varchar)
-- `created_at`
-
-**page_views**
-
-- `id` (bigint, PK)
-- `page_id` (bigint, FK)
-- `ip_address`, `user_agent`
-- `viewed_at`
-
-## 🔒 Security
-
-### Authentication
-
-- JWT tokens with 7-day expiration
-- BCrypt password hashing (cost factor: 11)
-- Secure token validation
-- HTTPS enforcement
-
-### Authorization
-
-- Role-based access control (RBAC)
-- Custom authorization attributes
-- Protected API endpoints
-- Admin-only routes
-
-### Data Protection
-
-- SQL injection prevention (EF Core parameterized queries)
-- XSS protection (HTML encoding)
-- CORS configuration
-- File upload validation
-- Input sanitization
-
-### Password Requirements
-
-- Minimum 8 characters
-- Must contain uppercase letters
-- Must contain lowercase letters
-- Must contain numbers
-
-## 📚 Documentation
-
-- **[Setup Guide](NovaLanding/SETUP.md)** - Complete installation instructions
-- **[Home Page Quick Start](NovaLanding/QUICK_START_HOME_PAGE.md)** - Get started with the home page in 3 steps
-- **[Home Page Documentation](NovaLanding/HOME_PAGE_DOCUMENTATION.md)** - Detailed home page features and customization
-- **[Telegram Notifications](NovaLanding/TELEGRAM_NOTIFICATIONS.md)** - Telegram integration guide
-- **[Features Complete](NovaLanding/FEATURES_COMPLETE.txt)** - Implemented features list
-
-## 🤝 Contributing
-
-This is a private project. For contribution guidelines, please contact the project maintainers.
-
-## 📄 License
-
-This project is proprietary and confidential. Unauthorized copying or distribution is prohibited.
-
-## 🛠️ Development
-
-### Running in Development
-
-```bash
-cd NovaLanding/NovaLanding
-dotnet watch run
-```
-
-### Building for Production
-
-```bash
-dotnet publish -c Release -o ./publish
-```
-
-### Database Migrations
-
-```bash
-# Create migration
-dotnet ef migrations add MigrationName
-
-# Update database
-dotnet ef database update
-
-# Rollback migration
-dotnet ef database update PreviousMigrationName
-```
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**Database Connection Failed**
-
-- Verify SQL Server is running
-- Check connection string in `appsettings.json`
-- Ensure database exists
-
-**JWT Token Invalid**
-
-- Check JWT key is at least 32 characters
-- Verify token hasn't expired
-- Clear browser localStorage
-
-**Google Login Not Working**
-
-- Verify Client ID in `appsettings.json`
-- Check authorized origins in Google Console
-- Ensure redirect URIs are configured
-
-**Telegram Notifications Not Sent**
-
-- Verify bot token is correct
-- Check admin chat ID
-- Ensure bot is not blocked
-- Review application logs
-
-## ✅ Getting Started Checklist
-
-After installation, follow this checklist:
-
-- [ ] Configure database connection in `appsettings.json`
-- [ ] Run database script (`landing_cms.sql`)
-- [ ] Update JWT secret key (minimum 32 characters)
-- [ ] Configure Google OAuth credentials (optional)
-- [ ] Set up Telegram bot and get bot token (optional)
-- [ ] Create your first admin user
-- [ ] Login and explore the dashboard
-- [ ] Create your first landing page
-- [ ] Test lead form submission
-- [ ] Configure Telegram notifications
-
-## 🎓 Learning Resources
-
-- **[Setup Guide](NovaLanding/SETUP.md)** - Step-by-step installation
-- **[Telegram Integration](NovaLanding/TELEGRAM_NOTIFICATIONS.md)** - Configure notifications
-- **API Endpoints** - See [API Reference](#-api-endpoints) section above
-- **Database Schema** - See [Database Schema](#-database-schema) section above
-
-## 🚦 Roadmap
-
-Future enhancements planned:
-
-- [ ] Email notifications
-- [ ] A/B testing for landing pages
-- [ ] Advanced analytics dashboard
-- [ ] Template marketplace
-- [ ] Multi-language support
-- [ ] Custom domain mapping
-- [ ] Webhook integrations
-- [ ] CRM integrations (HubSpot, Salesforce)
-- [ ] Payment gateway integration
-- [ ] Advanced form builder
-
-## 📞 Support
-
-For support, bug reports, or feature requests:
-
-- **Email**: Contact the development team
-- **Issues**: Report bugs via project issue tracker
-- **Documentation**: Check the `/NovaLanding` folder for detailed guides
-
-## 👥 Team
-
-This project is maintained by a dedicated team of developers focused on empowering marketers with no-code solutions.
-
-## 📋 Quick Reference
-
-### Default Ports
-
-- **HTTPS**: `https://localhost:5001`
-- **HTTP**: `http://localhost:5000`
-
-### Default Roles
-
-- `admin` - Full system access
-- `marketer` - Create and manage own pages
-
-### Important Files
-
-- `appsettings.json` - Configuration
-- `landing_cms.sql` - Database schema
-- `start.bat` - Quick start script (Windows)
-
-### Key Directories
-
-- `/Controllers` - API endpoints
-- `/Services` - Business logic
-- `/Pages` - Razor pages (UI)
-- `/wwwroot/uploads` - Uploaded media files
-
-### Environment Variables (Optional)
-
-```bash
-ConnectionStrings__DBDefault="Server=...;Database=landing_cms;..."
-Jwt__Key="YourSecretKey"
-Telegram__BotToken="123456:ABC..."
-Telegram__AdminChatId="123456789"
-```
-
----
+<a name="readme-top"></a>
 
 <div align="center">
+  <h1 align="center">NovaLanding CMS</h1>
 
-### 🌟 Star this repository if you find it helpful!
+  <p align="center">
+    <h3>AI-Powered Landing Page Builder</h3>
+    <br />
+    <em>Xây dựng Landing Page chuyên nghiệp trong vài giây với sức mạnh của Google Gemini AI</em>
+    <br />
+    <br />
+    <a href="#view-demo">Xem Demo</a>
+    ·
+    <a href="#report-bug">Báo lỗi</a>
+    ·
+    <a href="#request-feature">Yêu cầu tính năng</a>
+  </p>
 
-**Built with ❤️ using ASP.NET Core 8.0**
-
-_Empowering marketers to create beautiful landing pages without code_
-
-[⬆ Back to Top](#-novalanding-cms)
-
+  [![React][React.js]][React-url]
+  [![Vite][Vite]][Vite-url]
+  [![TypeScript][TypeScript]][TypeScript-url]
+  [![TailwindCSS][TailwindCSS]][TailwindCSS-url]
 </div>
+
+<!-- MỤC LỤC -->
+<details>
+  <summary><strong>Mục lục</strong> (Nhấn để mở rộng)</summary>
+  <ol>
+    <li>
+      <a href="#-giới-thiệu">Giới thiệu</a>
+      <ul>
+        <li><a href="#hình-ảnh-demo">Hình ảnh Demo</a></li>
+      </ul>
+    </li>
+    <li><a href="#-công-nghệ-sử-dụng">Công nghệ sử dụng</a></li>
+    <li>
+      <a href="#-bắt-đầu">Bắt đầu</a>
+      <ul>
+        <li><a href="#yêu-cầu-tiên-quyết">Yêu cầu tiên quyết</a></li>
+        <li><a href="#cài-đặt">Cài đặt</a></li>
+      </ul>
+    </li>
+    <li><a href="#-hướng-dẫn-sử-dụng">Hướng dẫn sử dụng</a></li>
+    <li><a href="#-lộ-trình-phát-triển">Lộ trình phát triển</a></li>
+    <li><a href="#-đóng-góp">Đóng góp</a></li>
+  </ol>
+</details>
+
+---
+
+## 🚀 Giới thiệu
+
+**NovaLanding CMS** là giải pháp Frontend hiện đại được thiết kế để dân chủ hóa việc tạo Landing Page. Không cần kiến thức lập trình, người dùng có thể tạo ra các trang web bán hàng, giới thiệu sản phẩm với giao diện tuyệt đẹp và nội dung chuẩn SEO.
+
+Điểm khác biệt lớn nhất của NovaLanding chính là **AI Engine**:
+*   **Tự động viết nội dung**: Nhập ngành hàng (VD: "Organic Coffee"), Gemini AI sẽ viết tiêu đề, mô tả, lợi ích sản phẩm...
+*   **Tự động hóa hình ảnh**: Hệ thống tự tìm ảnh phù hợp từ Unsplash hoặc vẽ ảnh mới hoàn toàn nếu không tìm thấy.
+
+### Hình ảnh Demo
+
+*(Chưa cập nhật ảnh chụp màn hình - Hãy chạy dự án để trải nghiệm)*
+
+<p align="right">(<a href="#readme-top">lên đầu trang</a>)</p>
+
+## 🛠 Công nghệ sử dụng
+
+Dự án được xây dựng trên nền tảng công nghệ web mới nhất để đảm bảo hiệu suất và trải nghiệm người dùng mượt mà:
+
+*   [![React][React.js]][React-url] **React 19** - Thư viện UI Core.
+*   [![Vite][Vite]][Vite-url] **Vite** - Build tool siêu tốc.
+*   [![TypeScript][TypeScript]][TypeScript-url] **TypeScript** - Type safety.
+*   **Google Gemini SDK** - Trí tuệ nhân tạo tạo sinh (Text & Image).
+*   **Lucide React** - Bộ icon hiện đại, nhẹ nhàng.
+
+<p align="right">(<a href="#readme-top">lên đầu trang</a>)</p>
+
+## ⚡ Bắt đầu
+
+Để chạy dự án này trên máy local của bạn, hãy làm theo các bước đơn giản sau.
+
+### Yêu cầu tiên quyết
+
+Đảm bảo bạn đã cài đặt các công cụ sau:
+*   [Node.js](https://nodejs.org/) (Khuyên dùng v18 trở lên)
+*   npm
+
+### Cài đặt
+
+1.  **Clone repository**
+    ```sh
+    git clone https://github.com/your-username/NovaLanding_CMS.git
+    cd NovaLanding_CMS/NovaLanding_CMS
+    ```
+
+2.  **Cài đặt các gói thư viện (Packages)**
+    ```sh
+    npm install
+    ```
+
+3.  **Cấu hình biến môi trường (.env)**
+    Tạo file `.env` ở thư mục gốc và điền API Key của bạn vào:
+    ```env
+    # Bắt buộc: Google AI Studio Key
+    GEMINI_API_KEY=AIzaSy...
+
+    # Bắt buộc: Unsplash Access Key (để tìm ảnh)
+    VITE_UNSPLASH_ACCESS_KEY=Client-ID...
+    ```
+
+4.  **Khởi chạy dự án**
+    ```sh
+    npm run dev
+    ```
+
+<p align="right">(<a href="#readme-top">lên đầu trang</a>)</p>
+
+## 📖 Hướng dẫn sử dụng
+
+1.  Truy cập `http://localhost:3000` trên trình duyệt.
+2.  **Bước 1: Nhập ý tưởng**. Ở thanh công cụ bên trái (Tab *Content*), nhập từ khóa ngành hàng của bạn vào ô "Niche/Topic".
+3.  **Bước 2: Generate**. Nhấn nút "Generate with AI" và đợi khoảng 5-10 giây.
+    *   AI sẽ điền nội dung vào các thẻ Hero, About, Features.
+    *   Hệ thống sẽ tự động thay thế ảnh nền phù hợp.
+4.  **Bước 3: Tinh chỉnh**.
+    *   Chuyển sang Tab *Design* để đổi Font chữ, màu sắc chủ đạo.
+    *   Bấm trực tiếp vào các Section trên màn hình Preview để chọn (Focus).
+5.  **Bước 4: Preview**. Bấm nút "Preview" trên thanh Topbar để xem trang ở chế độ toàn màn hình hoặc giả lập "Mobile View".
+
+<p align="right">(<a href="#readme-top">lên đầu trang</a>)</p>
+
+## 🛣 Lộ trình phát triển
+
+- [x] Tích hợp Google Gemini (Text Generation).
+- [x] Tích hợp Unsplash Image Search.
+- [x] Chế độ xem Mobile/Desktop.
+- [x] Undo/Redo History.
+- [ ] **Export HTML/CSS**: Xuất bản trang web thành file tĩnh.
+- [ ] **Lưu Project**: Lưu cấu hình xuống Database/File.
+- [ ] **Custom Section**: Cho phép thêm các Section tùy chỉnh mới.
+- [ ] **SEO Settings**: Tùy chỉnh thẻ Meta Tags bằng AI.
+
+<p align="right">(<a href="#readme-top">lên đầu trang</a>)</p>
+
+## 🤝 Đóng góp
+
+Mọi đóng góp đều luôn được hoan nghênh! Nếu bạn muốn cải thiện dự án này:
+
+1.  Fork dự án
+2.  Tạo Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit thay đổi của bạn (`git commit -m 'Add some AmazingFeature'`)
+4.  Push lên Branch (`git push origin feature/AmazingFeature`)
+5.  Mở một Pull Request
+
+<p align="right">(<a href="#readme-top">lên đầu trang</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Vite]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
+[Vite-url]: https://vitejs.dev/
+[TypeScript]: https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white
+[TypeScript-url]: https://www.typescriptlang.org/
+[TailwindCSS]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
+[TailwindCSS-url]: https://tailwindcss.com/

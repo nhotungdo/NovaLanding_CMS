@@ -5,7 +5,7 @@ import { DEFAULT_CONFIG } from './constants';
 import { Editor } from './components/Editor';
 import { SectionRenderer } from './components/SectionPreview';
 import { Icons } from './components/Icons';
-import { generateCopyForNiche, generateImage } from './services/geminiService';
+import { generateCopyForNiche, generateImage, getRelevantImage } from './services/geminiService';
 
 const App: React.FC = () => {
   const [config, setConfig] = useState<LandingPageConfig>(DEFAULT_CONFIG);
@@ -97,21 +97,41 @@ const App: React.FC = () => {
       
       updateConfig({ ...config, sections: updatedSections });
 
-      setGenerationStep('Generating high-end photography...');
-      const heroImg = await generateImage(copy.hero.visualPrompt);
+      setGenerationStep('Finding perfect images for your brand...');
+      
+      // Thử lấy ảnh từ Unsplash trước (nhanh hơn và chất lượng cao)
+      const heroImg = await getRelevantImage(niche, 'hero');
       if (heroImg) {
         updatedSections = updatedSections.map(s => 
           s.type === SectionType.HERO ? { ...s, content: { ...s.content, imageUrl: heroImg } } : s
         );
         updateConfig({ ...config, sections: updatedSections });
+      } else {
+        // Fallback: Generate ảnh bằng AI nếu Unsplash không có
+        const heroImgAI = await generateImage(copy.hero.visualPrompt);
+        if (heroImgAI) {
+          updatedSections = updatedSections.map(s => 
+            s.type === SectionType.HERO ? { ...s, content: { ...s.content, imageUrl: heroImgAI } } : s
+          );
+          updateConfig({ ...config, sections: updatedSections });
+        }
       }
 
-      const aboutImg = await generateImage(copy.about.visualPrompt);
+      const aboutImg = await getRelevantImage(niche, 'about');
       if (aboutImg) {
         updatedSections = updatedSections.map(s => 
           s.type === SectionType.ABOUT ? { ...s, content: { ...s.content, imageUrl: aboutImg } } : s
         );
         updateConfig({ ...config, sections: updatedSections });
+      } else {
+        // Fallback: Generate ảnh bằng AI nếu Unsplash không có
+        const aboutImgAI = await generateImage(copy.about.visualPrompt);
+        if (aboutImgAI) {
+          updatedSections = updatedSections.map(s => 
+            s.type === SectionType.ABOUT ? { ...s, content: { ...s.content, imageUrl: aboutImgAI } } : s
+          );
+          updateConfig({ ...config, sections: updatedSections });
+        }
       }
 
     } catch (error) {
