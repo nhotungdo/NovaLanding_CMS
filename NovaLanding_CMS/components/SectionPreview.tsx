@@ -6,23 +6,24 @@ import { Icons } from './Icons';
 interface SectionPreviewProps {
   section: Section;
   theme: ThemeConfig;
+  isMobileView?: boolean;
 }
 
-const Hero: React.FC<SectionPreviewProps> = ({ section, theme }) => (
-  <section 
-    className="py-20 px-6 text-center lg:text-left overflow-hidden relative"
+const Hero: React.FC<SectionPreviewProps> = ({ section, theme, isMobileView }) => (
+  <section
+    className={`py-20 px-6 text-center ${isMobileView ? '' : 'lg:text-left'} overflow-hidden relative`}
     style={{ backgroundColor: section.content.backgroundColor, color: section.content.textColor }}
   >
-    <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+    <div className={`max-w-7xl mx-auto flex flex-col ${isMobileView ? '' : 'lg:flex-row'} items-center gap-12`}>
       <div className="flex-1 space-y-6">
-        <h1 className="text-4xl lg:text-6xl font-extrabold font-heading leading-tight">
+        <h1 className={`text-4xl ${isMobileView ? '' : 'lg:text-6xl'} font-extrabold font-heading leading-tight`}>
           {section.content.title}
         </h1>
         <p className="text-xl opacity-80 leading-relaxed max-w-2xl">
           {section.content.subtitle}
         </p>
         <div className="pt-4">
-          <button 
+          <button
             className="px-8 py-4 font-bold text-white shadow-lg transition-transform hover:scale-105"
             style={{ backgroundColor: theme.primaryColor, borderRadius: theme.borderRadius }}
           >
@@ -31,10 +32,10 @@ const Hero: React.FC<SectionPreviewProps> = ({ section, theme }) => (
         </div>
       </div>
       <div className="flex-1 w-full max-w-xl">
-        <img 
-          src={section.content.imageUrl} 
-          alt="Hero" 
-          className="shadow-2xl w-full h-[450px] object-cover" 
+        <img
+          src={section.content.imageUrl}
+          alt="Hero"
+          className="shadow-2xl w-full h-[450px] object-cover"
           style={{ borderRadius: theme.borderRadius }}
         />
       </div>
@@ -42,16 +43,16 @@ const Hero: React.FC<SectionPreviewProps> = ({ section, theme }) => (
   </section>
 );
 
-const Features: React.FC<SectionPreviewProps> = ({ section, theme }) => (
+const Features: React.FC<SectionPreviewProps> = ({ section, theme, isMobileView }) => (
   <section className="py-20 px-6" style={{ backgroundColor: section.content.backgroundColor }}>
     <div className="max-w-7xl mx-auto text-center space-y-4 mb-16">
-      <h2 className="text-3xl lg:text-4xl font-bold font-heading">{section.content.title}</h2>
+      <h2 className={`text-3xl ${isMobileView ? '' : 'lg:text-4xl'} font-bold font-heading`}>{section.content.title}</h2>
       <p className="text-slate-600 max-w-2xl mx-auto">{section.content.subtitle}</p>
     </div>
-    <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div className={`max-w-7xl mx-auto grid grid-cols-1 ${isMobileView ? '' : 'md:grid-cols-3'} gap-8`}>
       {section.content.items?.map((item, idx) => (
         <div key={idx} className="p-8 bg-white shadow-sm border border-slate-100 hover:shadow-md transition-shadow" style={{ borderRadius: theme.borderRadius }}>
-          <div 
+          <div
             className="w-12 h-12 flex items-center justify-center mb-6 text-white"
             style={{ backgroundColor: theme.primaryColor, borderRadius: '8px' }}
           >
@@ -65,20 +66,20 @@ const Features: React.FC<SectionPreviewProps> = ({ section, theme }) => (
   </section>
 );
 
-const Pricing: React.FC<SectionPreviewProps> = ({ section, theme }) => (
+const Pricing: React.FC<SectionPreviewProps> = ({ section, theme, isMobileView }) => (
   <section className="py-20 px-6" style={{ backgroundColor: section.content.backgroundColor }}>
     <div className="max-w-7xl mx-auto text-center mb-16">
-      <h2 className="text-3xl lg:text-4xl font-bold font-heading">{section.content.title}</h2>
+      <h2 className={`text-3xl ${isMobileView ? '' : 'lg:text-4xl'} font-bold font-heading`}>{section.content.title}</h2>
       <p className="text-slate-600 mt-4">{section.content.subtitle}</p>
     </div>
-    <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div className={`max-w-7xl mx-auto grid grid-cols-1 ${isMobileView ? '' : 'md:grid-cols-3'} gap-8`}>
       {section.content.items?.map((item, idx) => (
-        <div key={idx} className={`p-8 border relative transition-all ${item.isPopular ? 'border-2 shadow-xl ring-2' : 'border-slate-100'}`} 
-             style={{ 
-               borderRadius: theme.borderRadius, 
-               borderColor: item.isPopular ? theme.primaryColor : undefined,
-               backgroundColor: '#fff'
-             }}>
+        <div key={idx} className={`p-8 border relative transition-all ${item.isPopular ? 'border-2 shadow-xl ring-2' : 'border-slate-100'}`}
+          style={{
+            borderRadius: theme.borderRadius,
+            borderColor: item.isPopular ? theme.primaryColor : undefined,
+            backgroundColor: '#fff'
+          }}>
           {item.isPopular && (
             <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest" style={{ backgroundColor: theme.primaryColor }}>
               Most Popular
@@ -93,13 +94,13 @@ const Pricing: React.FC<SectionPreviewProps> = ({ section, theme }) => (
               </li>
             ))}
           </ul>
-          <button className="w-full py-3 font-bold transition-all border-2" 
-                  style={{ 
-                    borderRadius: theme.borderRadius,
-                    backgroundColor: item.isPopular ? theme.primaryColor : 'transparent',
-                    color: item.isPopular ? '#fff' : theme.primaryColor,
-                    borderColor: theme.primaryColor
-                  }}>
+          <button className="w-full py-3 font-bold transition-all border-2"
+            style={{
+              borderRadius: theme.borderRadius,
+              backgroundColor: item.isPopular ? theme.primaryColor : 'transparent',
+              color: item.isPopular ? '#fff' : theme.primaryColor,
+              borderColor: theme.primaryColor
+            }}>
             Get Started
           </button>
         </div>
@@ -108,19 +109,19 @@ const Pricing: React.FC<SectionPreviewProps> = ({ section, theme }) => (
   </section>
 );
 
-const About: React.FC<SectionPreviewProps> = ({ section, theme }) => (
+const About: React.FC<SectionPreviewProps> = ({ section, theme, isMobileView }) => (
   <section className="py-20 px-6" style={{ backgroundColor: section.content.backgroundColor }}>
-    <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
-      <div className="flex-1 order-2 md:order-1">
-        <img 
-          src={section.content.imageUrl} 
-          alt="About" 
-          className="shadow-xl w-full h-[400px] object-cover" 
+    <div className={`max-w-7xl mx-auto flex flex-col ${isMobileView ? '' : 'md:flex-row'} items-center gap-16`}>
+      <div className={`flex-1 ${isMobileView ? 'order-2' : 'order-2 md:order-1'}`}>
+        <img
+          src={section.content.imageUrl}
+          alt="About"
+          className="shadow-xl w-full h-[400px] object-cover"
           style={{ borderRadius: theme.borderRadius }}
         />
       </div>
-      <div className="flex-1 space-y-6 order-1 md:order-2">
-        <h2 className="text-3xl lg:text-4xl font-bold font-heading">{section.content.title}</h2>
+      <div className={`flex-1 space-y-6 ${isMobileView ? 'order-1' : 'order-1 md:order-2'}`}>
+        <h2 className={`text-3xl ${isMobileView ? '' : 'lg:text-4xl'} font-bold font-heading`}>{section.content.title}</h2>
         <p className="text-lg text-slate-600 leading-relaxed">
           {section.content.description}
         </p>
@@ -129,9 +130,9 @@ const About: React.FC<SectionPreviewProps> = ({ section, theme }) => (
   </section>
 );
 
-const Footer: React.FC<SectionPreviewProps> = ({ section }) => (
+const Footer: React.FC<SectionPreviewProps> = ({ section, isMobileView }) => (
   <footer className="py-12 px-6" style={{ backgroundColor: section.content.backgroundColor, color: section.content.textColor }}>
-    <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+    <div className={`max-w-7xl mx-auto flex flex-col ${isMobileView ? '' : 'md:flex-row'} justify-between items-center gap-8 text-center ${isMobileView ? '' : 'md:text-left'}`}>
       <div>
         <h3 className="text-2xl font-bold mb-2">{section.content.title}</h3>
         <p className="opacity-70">{section.content.description}</p>
